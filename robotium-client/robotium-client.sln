@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "robotium-client", "robotium-client\robotium-client.csproj", "{6B860103-825F-4C0D-AD96-9BD2829A4F2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "robotium-client-test", "robotium-client-test\robotium-client-test.csproj", "{368A8260-9AB6-4C9E-8DB1-C1D465F1D533}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6B860103-825F-4C0D-AD96-9BD2829A4F2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B860103-825F-4C0D-AD96-9BD2829A4F2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B860103-825F-4C0D-AD96-9BD2829A4F2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B860103-825F-4C0D-AD96-9BD2829A4F2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{368A8260-9AB6-4C9E-8DB1-C1D465F1D533}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{368A8260-9AB6-4C9E-8DB1-C1D465F1D533}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{368A8260-9AB6-4C9E-8DB1-C1D465F1D533}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{368A8260-9AB6-4C9E-8DB1-C1D465F1D533}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
