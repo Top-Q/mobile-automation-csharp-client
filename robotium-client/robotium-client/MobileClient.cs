@@ -16,11 +16,11 @@ namespace robotium_client
 
         private RobotiumTcpClient tcpClient;
 
-        public MobileClient(string host,int port)
+        public MobileClient(string host, int port)
         {
             tcpClient = new RobotiumTcpClient(host, port);
         }
-        
+
         public CommandResponse Launch(string launcherActivityClass)
         {
             return SendData("launch", launcherActivityClass);
@@ -131,6 +131,11 @@ namespace robotium_client
             return SendData("isTextVisible", new String[] { text });
         }
 
+        public CommandResponse AssertTextVisible(String text)
+        {
+            return SendData("assertTextVisible", new String[] { text });
+        }
+
         public CommandResponse ScrollDownUntilTextIsVisible(string text)
         {
             return SendData("scrollDownUntilTextIsVisible", new String[] { text });
@@ -206,7 +211,7 @@ namespace robotium_client
 
         public CommandResponse WaitForActivity(string activity, int timeout)
         {
-            return SendData("waitForActivity", activity, timeout.ToString()); 
+            return SendData("waitForActivity", activity, timeout.ToString());
         }
 
         public CommandResponse ClickOnWebElement(string by, string expression)
@@ -216,7 +221,7 @@ namespace robotium_client
 
         public CommandResponse EnterTextInWebElement(string by, string expression, string text)
         {
-            return SendData("enterTextInWebElement", by, expression,text);
+            return SendData("enterTextInWebElement", by, expression, text);
         }
 
         public string TakeScreenshot()
@@ -224,39 +229,50 @@ namespace robotium_client
             throw new NotImplementedException();
         }
 
-        private CommandResponse SendData(String command, params string[] parameters) {
-		CommandResponse result = null;
-		try {
-            result = SendDataAndGetJSonObj(new CommandRequest(command, parameters));
-		} catch (Exception e) {
-            log.Error("Failed to send / receive data");
-			throw e;
-		}
-		return result;
-	}
+        private CommandResponse SendData(String command, params string[] parameters)
+        {
+            CommandResponse result = null;
+            try
+            {
+                result = SendDataAndGetJSonObj(new CommandRequest(command, parameters));
+            }
+            catch (Exception e)
+            {
+                log.Error("Failed to send / receive data");
+                throw e;
+            }
+            return result;
+        }
 
 
         private CommandResponse SendDataAndGetJSonObj(CommandRequest commandRequest)
         {
-            MemoryStream stream1 = new MemoryStream();
-            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(CommandRequest));
-            serializer.WriteObject(stream1, commandRequest);
-            stream1.Position = 0;
-            StreamReader sr = new StreamReader(stream1);
-            string response = tcpClient.Send(sr.ReadToEnd());
-            if (null == response)
+
+            string response = null;
+            using (MemoryStream stream1 = new MemoryStream())
+            using (StreamReader sr = new StreamReader(stream1))
             {
-                throw new Exception("Received no response from server");
+                {
+                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(CommandRequest));
+                    serializer.WriteObject(stream1, commandRequest);
+                    stream1.Position = 0;
+                    response = tcpClient.Send(sr.ReadToEnd());
+                    if (null == response)
+                    {
+                        throw new Exception("Received no response from server");
+                    }
+
+
+                }
+
             }
-
-
             DataContractJsonSerializer deserializer = new DataContractJsonSerializer(typeof(CommandResponse));
             using (MemoryStream stream = new MemoryStream(Encoding.Unicode.GetBytes(response)))
             {
                 CommandResponse result = (CommandResponse)deserializer.ReadObject(stream);
                 return result;
             }
-            
+
         }
 
 

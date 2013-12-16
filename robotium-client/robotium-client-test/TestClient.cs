@@ -35,7 +35,7 @@ namespace robotium_client_test
         public void TestMoveToRates()
         {
             client.ClickOnWebElement("cssSelector", "market-rates-button-icon");
-
         }
+        
     }
 }
